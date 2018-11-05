@@ -4,7 +4,6 @@ RSpec.describe 'Users API', type: :request do
   let!(:user) { create(:user)}
   let(:user_id) { user.id }
 
-
   describe "GET /users/:id" do
     before do
       headers = { "Accept" => "application/vnd.taskmanager.v1" }
