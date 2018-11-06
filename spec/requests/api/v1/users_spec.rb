@@ -4,6 +4,8 @@ RSpec.describe 'Users API', type: :request do
   let!(:user) { create(:user)}
   let(:user_id) { user.id }
 
+  before { host! "api.task-manager.test" }
+
   describe "GET /users/:id" do
     before do
       headers = { "Accept" => "application/vnd.taskmanager.v1" }
@@ -16,7 +18,17 @@ RSpec.describe 'Users API', type: :request do
        user_response = JSON.parse(response.body)
        expect(user_response["id"]).to eq(user_id)
       end
-    end
 
+      it "returns status 200" do
+        expect(response).to have_http_status(200)
+      end
+    end
+      context "when the user does not exist" do
+        let(:user_id) { 1000 }
+
+        it "returns status coide 404"do
+          expect(response).to have_http_status(404)
+        end
+      end
   end
 end
