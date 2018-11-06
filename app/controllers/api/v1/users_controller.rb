@@ -1,9 +1,9 @@
 class Api::V1::UsersController < ApplicationController
 
-    respont_to :json
+    respond_to :json
 
   def show
-    begin
+  begin
     @user = User.find(params[:id])
     respond_with @user
   rescue

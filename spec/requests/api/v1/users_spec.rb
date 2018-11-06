@@ -9,7 +9,7 @@ RSpec.describe 'Users API', type: :request do
   describe "GET /users/:id" do
     before do
       headers = { "Accept" => "application/vnd.taskmanager.v1" }
-      get "/users/#{user_id}", {},headers
+      get "/users/#{user_id}", params: {}, headers: headers
 
     end
 
@@ -19,16 +19,18 @@ RSpec.describe 'Users API', type: :request do
        expect(user_response["id"]).to eq(user_id)
       end
 
-      it "returns status 200" do
-        expect(response).to have_http_status(200)
-      end
-    end
-      context "when the user does not exist" do
-        let(:user_id) { 1000 }
+        it "returns status 200"do
+           expect(response).to have_http_status(200)
 
-        it "returns status coide 404"do
-          expect(response).to have_http_status(404)
         end
-      end
+
+    end
+        context "when theuser does not exist" do
+            let(:user_id) { 10000 }
+
+          it "returns status coide 404" do
+            expect(response).to have_http_status(404)
+          end
+        end
   end
 end
